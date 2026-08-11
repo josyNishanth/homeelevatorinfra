@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { railStops } from '../data/content';
 import { ScrollTrigger, gsap, prefersReducedMotion } from '../hooks/useScrollAnimation';
 
@@ -14,6 +15,7 @@ export default function ShaftRail() {
   const rail = useRef<HTMLDivElement>(null);
   const cab = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
+  const { pathname } = useLocation();
 
   useEffect(() => {
     const track = rail.current;
@@ -27,6 +29,8 @@ export default function ShaftRail() {
       ? (v: number) => gsap.set(car, { y: v })
       : gsap.quickTo(car, 'y', { duration: 0.45, ease: 'power2.out' });
 
+    // Recreated per route: each page has a different scrollable height, and a
+    // trigger built against the previous page's height reads the wrong progress.
     const st = ScrollTrigger.create({
       trigger: document.documentElement,
       start: 'top top',
@@ -40,7 +44,7 @@ export default function ShaftRail() {
     return () => {
       st.kill();
     };
-  }, []);
+  }, [pathname]);
 
   return (
     <div

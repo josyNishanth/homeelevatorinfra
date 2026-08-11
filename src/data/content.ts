@@ -12,25 +12,64 @@ export const brand = {
   serviceArea: 'India',
 };
 
+/** Every nav entry is a real route. Order drives the header and the footer. */
 export const navLinks = [
-  { label: 'Home', href: '#home' },
-  { label: 'Elevators', href: '#elevators' },
-  { label: 'Solutions', href: '#solutions' },
-  { label: 'Customize', href: '#customize' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'About', href: '#about' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Home', to: '/' },
+  { label: 'Elevators', to: '/elevators' },
+  { label: 'Solutions', to: '/solutions' },
+  { label: 'Customize', to: '/customize' },
+  { label: 'Projects', to: '/projects' },
+  { label: 'About', to: '/about' },
+  { label: 'Contact', to: '/contact' },
 ];
+
+/** Per-route <title> and meta description. */
+export const pageMeta: Record<string, { title: string; description: string }> = {
+  '/': {
+    title: 'Home Elevator Infra | Premium Home Elevators & Lifts',
+    description:
+      'Explore premium home elevators, vacuum lifts, hydraulic lifts and cylindrical home lift solutions with personalised designs and professional installation.',
+  },
+  '/elevators': {
+    title: 'Home Elevators, Vacuum & Hydraulic Lifts | Home Elevator Infra',
+    description:
+      'Compare vacuum, hydraulic and cylindrical home lifts — capacity, speed, power and site requirements for each system.',
+  },
+  '/solutions': {
+    title: 'Structure Design, Fabrication & Commissioning | Home Elevator Infra',
+    description:
+      'Elevator structure designing, fabrication and installation, commissioning and solar water heating for residential projects.',
+  },
+  '/customize': {
+    title: 'Personalise Your Lift | Home Elevator Infra',
+    description:
+      'Choose the exterior finish, cabin interior and lighting for your home elevator, and send the configuration with your quote request.',
+  },
+  '/projects': {
+    title: 'Installations & Clients | Home Elevator Infra',
+    description:
+      'Home lifts installed across Telangana and Andhra Pradesh — villas, duplexes, interiors, balconies and showrooms.',
+  },
+  '/about': {
+    title: 'About Home Elevator Infra | Residential Lift Specialists',
+    description:
+      'Why homeowners, architects and builders choose Home Elevator Infra for residential elevators — space, design, finishes and installation.',
+  },
+  '/contact': {
+    title: 'Get a Quote or Book a Site Visit | Home Elevator Infra',
+    description:
+      'Request a written quotation for a home elevator, or book a site visit with the Home Elevator Infra team.',
+  },
+};
 
 /** Stops on the shaft rail — the fixed scroll indicator on large screens. */
 export const railStops = [
-  { id: 'home', label: 'Home' },
-  { id: 'elevators', label: 'Elevators' },
-  { id: 'pricing', label: 'Pricing' },
-  { id: 'customize', label: 'Customize' },
-  { id: 'solutions', label: 'Solutions' },
-  { id: 'projects', label: 'Projects' },
-  { id: 'contact', label: 'Contact' },
+  { id: 'stop-1', label: 'Top' },
+  { id: 'stop-2', label: 'Second' },
+  { id: 'stop-3', label: 'Third' },
+  { id: 'stop-4', label: 'Fourth' },
+  { id: 'stop-5', label: 'Fifth' },
+  { id: 'stop-6', label: 'Foot' },
 ];
 
 export const trustPoints = [

@@ -1,5 +1,12 @@
-import type { ElementType } from 'react';
+import type { ComponentType, ElementType, ReactNode, Ref } from 'react';
 import { gsap, prefersReducedMotion, useGsap } from '../../hooks/useScrollAnimation';
+
+/**
+ * @react-three/fiber augments JSX.IntrinsicElements with every three.js object,
+ * which collapses a bare `ElementType` to `never` inside JSX. This component only
+ * ever renders a DOM tag, so the tag is narrowed at the boundary.
+ */
+type DomTag = ComponentType<{ ref?: Ref<HTMLElement>; className?: string; children?: ReactNode }>;
 
 type Props = {
   /** Use \n to force a line break. */
@@ -42,8 +49,9 @@ export default function MaskedHeading({
     [text, delay, onLoad, stagger],
   );
 
+  const Node = Tag as DomTag;
   return (
-    <Tag ref={scope} className={`display-type ${className}`}>
+    <Node ref={scope} className={`display-type ${className}`}>
       {text.split('\n').map((line, li) => {
         const words = line.split(' ');
         return (
@@ -61,6 +69,6 @@ export default function MaskedHeading({
           </span>
         );
       })}
-    </Tag>
+    </Node>
   );
 }

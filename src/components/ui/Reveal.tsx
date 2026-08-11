@@ -1,5 +1,12 @@
-import type { ElementType, ReactNode } from 'react';
+import type { ComponentType, ElementType, ReactNode, Ref } from 'react';
 import { gsap, prefersReducedMotion, useGsap } from '../../hooks/useScrollAnimation';
+
+/**
+ * @react-three/fiber augments JSX.IntrinsicElements with every three.js object,
+ * which collapses a bare `ElementType` to `never` inside JSX. This component only
+ * ever renders a DOM tag, so the tag is narrowed at the boundary.
+ */
+type DomTag = ComponentType<{ ref?: Ref<HTMLElement>; className?: string; children?: ReactNode }>;
 
 type RevealProps = {
   children: ReactNode;
@@ -51,9 +58,10 @@ export default function Reveal({
     [y, delay, duration, stagger, scale, start],
   );
 
+  const Node = Tag as DomTag;
   return (
-    <Tag ref={scope} className={className}>
+    <Node ref={scope} className={className}>
       {children}
-    </Tag>
+    </Node>
   );
 }

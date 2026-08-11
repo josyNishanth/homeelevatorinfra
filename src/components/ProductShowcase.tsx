@@ -119,10 +119,10 @@ export default function ProductShowcase() {
             </dl>
 
             <div className="mt-10 flex flex-wrap gap-4">
-              <Button href="#customize" variant="gold" icon={<ArrowUpRight size={15} strokeWidth={1.6} />}>
+              <Button to="/customize" variant="gold" icon={<ArrowUpRight size={15} strokeWidth={1.6} />}>
                 Personalise this lift
               </Button>
-              <Button href="#contact" variant="onDark">
+              <Button to="/contact" variant="onDark">
                 Book a site visit
               </Button>
             </div>

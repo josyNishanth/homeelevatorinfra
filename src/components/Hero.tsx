@@ -82,12 +82,12 @@ export default function Hero() {
 
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <span data-hero-cta className="inline-block">
-                <Button href="#elevators" variant="gold" icon={<ArrowDown size={15} strokeWidth={1.6} />}>
+                <Button to="/elevators" variant="gold" icon={<ArrowDown size={15} strokeWidth={1.6} />}>
                   Explore elevators
                 </Button>
               </span>
               <span data-hero-cta className="inline-block">
-                <Button href="#contact" variant="onDark" icon={<ArrowUpRight size={15} strokeWidth={1.6} />}>
+                <Button to="/contact" variant="onDark" icon={<ArrowUpRight size={15} strokeWidth={1.6} />}>
                   Get a quote
                 </Button>
               </span>

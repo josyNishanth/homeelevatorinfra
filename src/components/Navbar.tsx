@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import { ArrowUpRight, Menu, X } from 'lucide-react';
 import { brand, navLinks } from '../data/content';
 import { gsap, prefersReducedMotion } from '../hooks/useScrollAnimation';
@@ -8,6 +9,10 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const overlay = useRef<HTMLDivElement>(null);
+  const { pathname } = useLocation();
+
+  // Navigating with the menu open should close it.
+  useEffect(() => setOpen(false), [pathname]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -75,7 +80,7 @@ export default function Navbar() {
   return (
     <>
       <a
-        href="#elevators"
+        href="#main"
         className="label-type sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[80] focus:bg-navy focus:px-4 focus:py-3 focus:text-cream"
       >
         Skip to content
@@ -93,8 +98,8 @@ export default function Navbar() {
             scrolled ? 'h-16' : 'h-20 md:h-24'
           }`}
         >
-          <a
-            href="#home"
+          <Link
+            to="/"
             aria-label={`${brand.name} — home`}
             className={`display-type flex items-baseline gap-1.5 text-sm whitespace-nowrap tracking-[0.02em] uppercase transition-colors duration-500 sm:text-base ${
               solid ? 'text-navy' : 'text-cream'
@@ -102,30 +107,45 @@ export default function Navbar() {
           >
             <span>{brand.wordmark.first}</span>
             <span className="text-gold">{brand.wordmark.second}</span>
-          </a>
+          </Link>
 
           <nav aria-label="Primary" className="hidden items-center gap-8 lg:flex">
             {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className={`label-type group relative py-2 transition-colors duration-300 ${
-                  solid ? 'text-ink/70 hover:text-navy' : 'text-cream/75 hover:text-cream'
-                }`}
+              <NavLink
+                key={link.to}
+                to={link.to}
+                end={link.to === '/'}
+                className={({ isActive }) =>
+                  `label-type group relative py-2 transition-colors duration-300 ${
+                    isActive
+                      ? solid
+                        ? 'text-navy'
+                        : 'text-cream'
+                      : solid
+                        ? 'text-ink/60 hover:text-navy'
+                        : 'text-cream/65 hover:text-cream'
+                  }`
+                }
               >
-                {link.label}
-                <span
-                  aria-hidden="true"
-                  className="absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-gold transition-transform duration-500 ease-brand group-hover:scale-x-100"
-                />
-              </a>
+                {({ isActive }) => (
+                  <>
+                    {link.label}
+                    <span
+                      aria-hidden="true"
+                      className={`absolute inset-x-0 bottom-0 h-px origin-left bg-gold transition-transform duration-500 ease-brand ${
+                        isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+                      }`}
+                    />
+                  </>
+                )}
+              </NavLink>
             ))}
           </nav>
 
           <div className="flex items-center gap-3">
             <span className="hidden sm:block">
               <Button
-                href="#contact"
+                to="/contact"
                 variant={solid ? 'primary' : 'onDark'}
                 className="px-6 py-3.5"
                 icon={<ArrowUpRight size={15} strokeWidth={1.6} />}
@@ -158,24 +178,29 @@ export default function Navbar() {
       >
         <nav aria-label="Mobile" className="flex flex-col">
           {navLinks.map((link, i) => (
-            <a
-              key={link.href}
+            <NavLink
+              key={link.to}
               data-nav-item
-              href={link.href}
+              to={link.to}
+              end={link.to === '/'}
               onClick={() => setOpen(false)}
-              className="display-type flex items-baseline gap-4 border-b border-cream/12 py-5 text-3xl text-cream/90 transition-colors hover:text-gold sm:text-4xl"
+              className={({ isActive }) =>
+                `display-type flex items-baseline gap-4 border-b border-cream/12 py-5 text-3xl transition-colors hover:text-gold sm:text-4xl ${
+                  isActive ? 'text-gold' : 'text-cream/90'
+                }`
+              }
             >
               <span className="label-type text-gold/70">{String(i + 1).padStart(2, '0')}</span>
               {link.label}
-            </a>
+            </NavLink>
           ))}
         </nav>
 
         <div data-nav-item className="flex flex-col gap-4">
-          <Button href="#contact" variant="gold" onClick={() => setOpen(false)} className="w-full">
+          <Button to="/contact" variant="gold" onClick={() => setOpen(false)} className="w-full">
             Get a quote
           </Button>
-          <Button href="#contact" variant="onDark" onClick={() => setOpen(false)} className="w-full">
+          <Button href={brand.phoneHref} variant="onDark" onClick={() => setOpen(false)} className="w-full">
             Book a site visit
           </Button>
           <p className="label-type mt-2 text-cream/40">{brand.phone}</p>

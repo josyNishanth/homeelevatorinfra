@@ -82,7 +82,7 @@ export default function Pricing() {
 
                   <div className="relative mt-9">
                     <Button
-                      href="#customize"
+                      to="/customize"
                       variant={selected ? 'gold' : 'outline'}
                       onClick={() => setFloors(tier.id)}
                       className="w-full"

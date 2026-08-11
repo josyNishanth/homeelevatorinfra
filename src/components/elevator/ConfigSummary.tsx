@@ -56,7 +56,7 @@ export default function ConfigSummary({ className = '' }: { className?: string }
         <p className="mt-3 text-xs leading-relaxed text-cream/50">{CONFIG_DISCLAIMER}</p>
       </div>
 
-      <Button href="#contact" variant="gold" className="mt-6 w-full" icon={<ArrowRight size={15} strokeWidth={1.6} />}>
+      <Button to="/contact" variant="gold" className="mt-6 w-full" icon={<ArrowRight size={15} strokeWidth={1.6} />}>
         Request quote
       </Button>
     </aside>

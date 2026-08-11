@@ -74,9 +74,10 @@ pneumatic vacuum lifts (720×882). They drive:
 - the integration showcase (`content.ts` → `architectureScenes`)
 - the whole gallery (`projects.ts`)
 
-The hydraulic lift has **no photograph yet** and still uses a rendered stand-in —
-`public/images/products/hydraulic.svg`. Drop a real one in and point
-`elevators.ts` at it.
+The hydraulic lift's product image (`elevators.ts` → `image`) is currently
+`public/images/products/13.webp`, a cylindrical glass lift in a stairwell atrium —
+not actually a hydraulic system. It fills the slot until a real hydraulic
+installation photo is supplied; swap it out then.
 
 ### Why the configurator still uses renders
 
@@ -107,6 +108,60 @@ renders with its `specNote` caveat, and the FAQ answers repeat the same numbers.
 
 Verify each figure against your own supplier documentation before launch, and
 edit `specNote` if the wording needs to change.
+
+## 3D viewer (Phase 1)
+
+`/customize` renders the real GLB through React Three Fiber. Every other route
+still uses the image viewer, and `three` is code-split so only `/customize`
+downloads it (main bundle ~463 kB, 3D chunk ~1.05 MB / 290 kB gzip).
+
+```
+ElevatorViewer          public API — picks image vs 3D, owns the error fallback
+├─ ElevatorImageStack   the original image/crossfade path (unchanged)
+└─ Elevator3DViewer     lazy-loaded canvas, camera fit, OrbitControls, overlay
+   ├─ ElevatorModel     loads + normalises the GLB, reports its bounding box
+   └─ ElevatorLighting  studio rig + procedural environment + contact shadow
+```
+
+- Model: `public/models/vacuum-elevator-pve37.glb`, copied byte-identical from
+  `3D-model/` (sha1 `355a6be…`). The original is never touched.
+- Camera is solved from the measured bounding box — the model fills 72% of the
+  viewer height (66% under 640px), and the fit is **locked once the visitor
+  interacts** so the camera never snaps back mid-orbit.
+- Auto-rotation runs at `autoRotateSpeed` 0.8, pauses on interaction and resumes
+  2.4s after it ends. Disabled entirely under `prefers-reduced-motion`.
+- `ViewerErrorBoundary` falls back to the image viewer if WebGL or the GLB fails.
+
+### What the GLB contains
+
+Exported by *Khronos glTF Blender I/O v4.2.57*. 44 nodes, 9 meshes, 13
+primitives, 4 materials, **0 textures, 0 animations, 0 skins, 0 cameras**. The
+hierarchy is flat — every node sits directly under `Scene`. Regenerate this
+summary any time with `node scripts/inspect-glb.mjs`.
+
+| Material | Notes |
+| --- | --- |
+| `[Translucent Glass Gray]` | Glazing. baseColor `0.22` grey, **alpha 1.0 / alphaMode OPAQUE** |
+| ` frame color` | Frame — note the **leading space**. No baseColorFactor, so pure white |
+| `DefaultMaterial` | baseColor `0.8` grey. Used only on one door primitive |
+| `base color` | baseColor `0.573` grey. Cabin inner section |
+
+Meshes: `C-glass-tube-door`, `C-door-ring`, `C-galkss tube door` *(sic)*,
+`C-ring#1`, `C-support`, `C-glass tube`, `C-elev cab`, `C-cab-rail`,
+`C-inner section#1`. Nodes repeat these via `.001`–`.015` suffixes; the two tube
+sections sit at y≈0–2.745 and y≈2.745–5.486, giving a ~5.66-unit-tall G+2 stack.
+
+**Two corrections are applied at load** (in `ElevatorModel`, documented inline):
+
+1. Every primitive ships `POSITION` only — no `NORMAL`. Without normals the
+   model renders unlit, so vertex normals are computed on load.
+2. The glazing material is exported opaque despite its name, which made the tube
+   a solid pipe hiding the cab. Glass is re-enabled as transparent. Pass
+   `glassTransparency={false}` to see the raw exported result.
+
+No material colours, roughness or metalness are changed — those stay as
+exported, ready for the configurator phase. There are also **no UVs**, so any
+future texture work needs UVs generated or must stay solid-colour.
 
 ## Configuration state
 

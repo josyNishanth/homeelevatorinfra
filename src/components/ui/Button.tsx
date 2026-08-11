@@ -1,4 +1,5 @@
 import type { ComponentPropsWithoutRef, ReactNode } from 'react';
+import { Link } from 'react-router-dom';
 
 type Variant = 'primary' | 'gold' | 'outline' | 'onDark' | 'quiet';
 
@@ -35,10 +36,13 @@ type CommonProps = {
   className?: string;
 };
 
-type ButtonProps = CommonProps & ComponentPropsWithoutRef<'button'> & { href?: undefined };
-type LinkProps = CommonProps & ComponentPropsWithoutRef<'a'> & { href: string };
+type ButtonProps = CommonProps & ComponentPropsWithoutRef<'button'> & { href?: undefined; to?: undefined };
+/** External or protocol link (tel:, https:, mailto:). */
+type AnchorProps = CommonProps & ComponentPropsWithoutRef<'a'> & { href: string; to?: undefined };
+/** In-app route — renders a router Link so navigation stays client-side. */
+type RouteProps = CommonProps & Omit<ComponentPropsWithoutRef<'a'>, 'href'> & { to: string; href?: undefined };
 
-export default function Button(props: ButtonProps | LinkProps) {
+export default function Button(props: ButtonProps | AnchorProps | RouteProps) {
   const { variant = 'primary', children, icon, className = '', ...rest } = props;
   const v = variants[variant];
   const cls = `${base} ${v.shell} ${className}`;
@@ -59,6 +63,15 @@ export default function Button(props: ButtonProps | LinkProps) {
       )}
     </>
   );
+
+  if ('to' in rest && rest.to) {
+    const { to, ...linkRest } = rest as { to: string } & ComponentPropsWithoutRef<'a'>;
+    return (
+      <Link to={to} className={cls} {...linkRest}>
+        {inner}
+      </Link>
+    );
+  }
 
   if ('href' in rest && rest.href) {
     return (

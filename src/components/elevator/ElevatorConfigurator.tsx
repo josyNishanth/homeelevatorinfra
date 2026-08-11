@@ -50,11 +50,18 @@ export default function ElevatorConfigurator() {
               <div className="relative">
                 <ElevatorViewer
                   config={config}
-                  mode="image"
-                  alt={`${findFinish(config.exteriorColor).name} home elevator with ${findInterior(
+                  mode="3d"
+                  alt={`Interactive 3D model of a pneumatic vacuum home elevator. Drag to rotate, scroll to zoom. Currently configured with a ${findFinish(
+                    config.exteriorColor,
+                  ).name.toLowerCase()} finish, ${findInterior(
                     config.interior,
-                  ).name.toLowerCase()} interior and ${findLighting(config.lighting).name.toLowerCase()} lighting`}
+                  ).name.toLowerCase()} interior and ${findLighting(config.lighting).name.toLowerCase()} lighting.`}
                   className="aspect-[4/5] w-full sm:aspect-[3/4]"
+                  // The summary card overlays the right side from lg up, so the
+                  // canvas is narrowed to the free area and the elevator is never
+                  // drawn behind it. Width must win over the inline width:100%
+                  // that React Three Fiber puts on its container, hence "!".
+                  canvasClassName="lg:!w-[calc(100%-20rem)]"
                 >
                   <div className="pointer-events-none absolute inset-x-0 top-0 flex items-center justify-between p-5">
                     <span className="label-type bg-cream/85 px-3 py-2 text-ink backdrop-blur-sm">

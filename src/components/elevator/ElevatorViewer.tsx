@@ -1,15 +1,23 @@
-import { useEffect, useRef, useState } from 'react';
+import { Suspense, lazy, useEffect, useRef, useState } from 'react';
 import type { CSSProperties, ReactNode } from 'react';
 import type { ElevatorConfiguration, ViewerMode } from '../../types/elevator';
 import { gsap, prefersReducedMotion } from '../../hooks/useScrollAnimation';
 import { resolveMaterials } from './ElevatorMaterials';
+import ViewerErrorBoundary from './ViewerErrorBoundary';
+
+/**
+ * three.js, @react-three/fiber and @react-three/drei are a large dependency, and
+ * only the /customize route needs them. Loading the 3D viewer lazily keeps that
+ * weight out of the bundle every other page downloads.
+ */
+const Elevator3DViewer = lazy(() => import('./Elevator3DViewer'));
 
 type Props = {
   config: ElevatorConfiguration;
   /**
    * 'image' renders the pre-rendered visual for the current configuration.
-   * '3d' is reserved for the React Three Fiber viewer; until that ships it
-   * falls back to the image so callers can opt in early without breaking.
+   * '3d' renders the interactive React Three Fiber viewer, falling back to the
+   * image viewer if WebGL or the model is unavailable.
    */
   mode?: ViewerMode;
   /** Overrides the configuration-derived image (used by the hero). */
@@ -19,14 +27,64 @@ type Props = {
   /** Skip lazy-loading for above-the-fold use. */
   priority?: boolean;
   children?: ReactNode;
+  /** 3D only: hide or replace the "Drag to explore" hint. */
+  hint?: string | null;
+  /** 3D only: render the GLB's glazing exactly as exported (opaque). */
+  glassTransparency?: boolean;
+  /** 3D only: inset the canvas so an overlay panel does not cover the product. */
+  canvasClassName?: string;
 };
 
 /**
  * Presentation shell for the elevator. Layout, framing and overlays live here;
- * what fills the frame is swappable. Replacing the <img> stack with a
- * <Canvas> from @react-three/fiber requires no changes outside this file.
+ * what fills the frame is swappable — an image stack today, a 3D canvas on the
+ * routes that opt in with mode="3d".
  */
-export default function ElevatorViewer({
+export default function ElevatorViewer(props: Props) {
+  const { config, mode = 'image', className = '', children, alt, hint, glassTransparency, canvasClassName } = props;
+
+  if (mode === '3d') {
+    const materials = resolveMaterials(config);
+    return (
+      // The boundary sits outside the wrapper so the fallback can bring its own
+      // sized container; nested inside, it would collapse to zero height.
+      <ViewerErrorBoundary fallback={<ElevatorImageStack {...props} mode="image" />}>
+        <div
+          data-viewer-mode="3d"
+          className={`relative isolate overflow-hidden bg-cream-dim ${className}`}
+          style={materials.vars as CSSProperties}
+        >
+          <Suspense fallback={<ViewerSkeleton />}>
+            <Elevator3DViewer
+              alt={alt}
+              hint={hint}
+              glassTransparency={glassTransparency}
+              canvasClassName={canvasClassName}
+            />
+          </Suspense>
+          {children}
+        </div>
+      </ViewerErrorBoundary>
+    );
+  }
+
+  return <ElevatorImageStack {...props} />;
+}
+
+/** Shown while the 3D chunk downloads. */
+function ViewerSkeleton() {
+  return (
+    <div className="absolute inset-0 flex items-center justify-center bg-[radial-gradient(115%_85%_at_50%_12%,#1E2A3B_0%,#141922_52%,#0A0D12_100%)]">
+      <p className="label-type text-cream/40">Preparing 3D viewer</p>
+    </div>
+  );
+}
+
+/**
+ * The original image implementation, unchanged. Hero, ProductShowcase and the
+ * finish swatches all render through this path.
+ */
+function ElevatorImageStack({
   config,
   mode = 'image',
   image,

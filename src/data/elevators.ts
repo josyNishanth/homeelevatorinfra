@@ -87,8 +87,8 @@ export const elevators: Elevator[] = [
       'Custom interiors',
       'Residential applications',
     ],
-    image: '/images/products/hydraulic.svg',
-    imageAlt: 'Hydraulic home lift with a dark cabin and structural side rails',
+    image: '/images/products/13.webp',
+    imageAlt: 'Cylindrical glass home lift installed in a double-height atrium beside a staircase',
     specs: [
       { label: 'Drive', value: 'Hydraulic' },
       { label: 'Form', value: 'Shaft cabin' },

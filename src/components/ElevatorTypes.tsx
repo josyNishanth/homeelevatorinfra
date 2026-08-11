@@ -66,14 +66,14 @@ function ProductBlock({ index }: { index: number }) {
 
         <div className="mt-9 flex flex-wrap gap-4">
           <Button
-            href="#customize"
+            to="/customize"
             variant="primary"
             onClick={() => setModel(elevator.id)}
             icon={<ArrowUpRight size={15} strokeWidth={1.6} />}
           >
             Personalise this lift
           </Button>
-          <Button href="#contact" variant="outline">
+          <Button to="/contact" variant="outline">
             Get a quote
           </Button>
         </div>
@@ -95,8 +95,11 @@ function ProductBlock({ index }: { index: number }) {
         </Reveal>
       </div>
 
-      {/* Specification. Manufacturer figures, labelled as such. */}
-      <div className="lg:col-span-12">
+      {/* Specification. Manufacturer figures, labelled as such.
+          lg:order-last pins this after both text and image on flipped blocks
+          too — otherwise it lands between them (image order-first, text
+          order-last, this had no order and tied with neither). */}
+      <div className="lg:order-last lg:col-span-12">
         <Reveal y={18}>
           <div className="border-t border-ink/12 pt-8">
             <div className="flex flex-wrap items-baseline justify-between gap-4">

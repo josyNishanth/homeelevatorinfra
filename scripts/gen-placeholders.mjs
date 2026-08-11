@@ -365,9 +365,7 @@ for (const [name, cabin, frame] of FINISHES) {
   write(`images/elevators/${name}.svg`, elevator({ cabin, frame, form: 'soft' }));
 }
 
-// Vacuum and cylindrical products now use installation photography; only the
-// hydraulic lift still needs a rendered stand-in.
-write('images/products/hydraulic.svg', elevator({ cabin: '#2A2E35', frame: '#8E949C', form: 'box' }));
+// All three product slots now use real photography (see elevators.ts).
 
 const SCENES = {
   // Decorative texture behind the hero gradients.

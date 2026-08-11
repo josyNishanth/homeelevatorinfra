@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { ArrowUpRight, MessageCircle, Phone, X } from 'lucide-react';
 import { brand } from '../data/content';
 
@@ -50,13 +51,13 @@ export default function StickyCTA() {
         >
           <div>
             <p className="label-type text-cream/50">Need help choosing?</p>
-            <a
-              href="#contact"
+            <Link
+              to="/contact"
               className="display-type mt-1 flex items-center gap-2 text-lg text-cream transition-colors hover:text-gold"
             >
               Get a quote
               <ArrowUpRight size={16} strokeWidth={1.6} aria-hidden="true" />
-            </a>
+            </Link>
           </div>
           <button
             type="button"
@@ -88,9 +89,9 @@ export default function StickyCTA() {
             <MessageCircle size={15} strokeWidth={1.7} aria-hidden="true" />
             WhatsApp
           </a>
-          <a href="#contact" className="label-type flex items-center justify-center gap-2 bg-navy py-4 text-cream">
+          <Link to="/contact" className="label-type flex items-center justify-center gap-2 bg-navy py-4 text-cream">
             Get quote
-          </a>
+          </Link>
         </div>
       </div>
     </>
