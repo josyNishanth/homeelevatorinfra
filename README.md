@@ -52,8 +52,11 @@ No product information is hardcoded in components. Edit these instead:
 
 ### Before going live
 
-- `src/data/content.ts` → `brand.phone`, `brand.phoneHref`, `brand.whatsappHref`,
-  `brand.email` are **placeholders**.
+- Contact details are live in `src/data/content.ts`. `phones` is the source of
+  truth and lists both published numbers; `brand.phone` / `brand.phoneHref` alias
+  the first one, which is what single-action buttons (Call, WhatsApp, Book a site
+  visit) use. WhatsApp currently points at the first number — change
+  `brand.whatsappHref` if it should be the second.
 - `src/data/content.ts` → `testimonials` are **placeholders** with
   `verified: false`; the section shows a visible notice while that is the case.
   Replace with real, verified customer quotes.

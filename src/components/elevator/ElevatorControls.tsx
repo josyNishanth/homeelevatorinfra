@@ -1,5 +1,5 @@
 import type { CSSProperties, ReactNode } from 'react';
-import { finishGroups, interiors, lightingOptions } from '../../data/colors';
+import { finishGroups, glassOptions, interiors, lightingOptions } from '../../data/colors';
 import { useElevatorConfig } from '../../hooks/useElevatorConfig';
 
 /**
@@ -74,7 +74,7 @@ function Group({ legend, note, children }: { legend: string; note?: string; chil
 }
 
 export default function ElevatorControls() {
-  const { config, setFinish, setInterior, setLighting } = useElevatorConfig();
+  const { config, setFinish, setGlass, setInterior, setLighting } = useElevatorConfig();
 
   return (
     <div className="flex flex-col gap-9">
@@ -101,7 +101,25 @@ export default function ElevatorControls() {
         </Group>
       ))}
 
-      <Group legend="Interior" note="Cabin floor and walls">
+      <Group legend="Glass" note="Tube and door glazing">
+        {glassOptions.map((glass) => (
+          <Swatch
+            key={glass.id}
+            name="glass"
+            value={glass.id}
+            label={glass.name}
+            sub={glass.note}
+            checked={config.glass === glass.id}
+            onSelect={() => setGlass(glass.id)}
+            style={{
+              // Reads as glazing: a light edge highlight over the tint.
+              background: `linear-gradient(135deg, color-mix(in srgb, ${glass.hex} 35%, white) 0%, ${glass.hex} 55%, color-mix(in srgb, ${glass.hex} 75%, black) 100%)`,
+            }}
+          />
+        ))}
+      </Group>
+
+      <Group legend="Interior" note="Cabin floor plates">
         {interiors.map((interior) => (
           <Swatch
             key={interior.id}

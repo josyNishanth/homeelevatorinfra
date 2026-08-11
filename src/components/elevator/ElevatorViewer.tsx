@@ -56,6 +56,7 @@ export default function ElevatorViewer(props: Props) {
         >
           <Suspense fallback={<ViewerSkeleton />}>
             <Elevator3DViewer
+              config={config}
               alt={alt}
               hint={hint}
               glassTransparency={glassTransparency}

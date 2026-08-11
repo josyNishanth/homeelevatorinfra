@@ -1,14 +1,25 @@
 /** Brand, navigation and section copy that isn't product data. */
 
+/**
+ * Published contact numbers, in order of preference. The first is treated as the
+ * primary: single-action buttons (Call, Book a site visit, WhatsApp) use it,
+ * while the footer and contact page list all of them.
+ */
+export const phones = [
+  { display: '+91 91600 71199', href: 'tel:+919160071199' },
+  { display: '+91 98484 48811', href: 'tel:+919848448811' },
+];
+
 export const brand = {
   name: 'HomeElevatorInfra',
   wordmark: { first: 'HOME ELEVATOR', second: 'INFRA' },
   tagline: 'Premium home elevators & lifts',
-  // TODO: replace placeholders with the real published contact details.
-  phone: '+91 00000 00000',
-  phoneHref: 'tel:+910000000000',
-  whatsappHref: 'https://wa.me/910000000000',
-  email: 'hello@homeelevatorinfra.com',
+  phones,
+  /** Primary number — kept as a flat field so existing call sites still work. */
+  phone: phones[0].display,
+  phoneHref: phones[0].href,
+  whatsappHref: 'https://wa.me/919160071199',
+  email: 'homeelevatorinfra@gmail.com',
   serviceArea: 'India',
 };
 

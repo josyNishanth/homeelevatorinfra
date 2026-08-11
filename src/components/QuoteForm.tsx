@@ -5,7 +5,7 @@ import { brand } from '../data/content';
 import { elevators } from '../data/elevators';
 import { pricingTiers } from '../data/pricing';
 import { finishLabel, useElevatorConfig } from '../hooks/useElevatorConfig';
-import { findInterior, findLighting } from '../data/colors';
+import { findGlass, findInterior, findLighting } from '../data/colors';
 import { gsap, prefersReducedMotion } from '../hooks/useScrollAnimation';
 import Button from './ui/Button';
 import MaskedHeading from './ui/MaskedHeading';
@@ -142,6 +142,7 @@ export default function QuoteForm() {
     elevators.find((e) => e.id === config.model)?.shortName,
     config.floors,
     finishLabel(config),
+    `${findGlass(config.glass).name} glass`,
     `${findInterior(config.interior).name} interior`,
     `${findLighting(config.lighting).name} lighting`,
   ].join(' · ');
@@ -172,10 +173,16 @@ export default function QuoteForm() {
                 </div>
                 <div className="flex items-baseline justify-between gap-6 border-t border-cream/12 py-3">
                   <dt className="label-type text-cream/45">Phone</dt>
-                  <dd>
-                    <a href={brand.phoneHref} className="text-sm text-cream/85 underline-offset-4 hover:underline">
-                      {brand.phone}
-                    </a>
+                  <dd className="flex flex-col items-end gap-1">
+                    {brand.phones.map((p) => (
+                      <a
+                        key={p.href}
+                        href={p.href}
+                        className="text-sm text-cream/85 underline-offset-4 hover:underline"
+                      >
+                        {p.display}
+                      </a>
+                    ))}
                   </dd>
                 </div>
                 <div className="flex items-baseline justify-between gap-6 border-t border-cream/12 py-3">

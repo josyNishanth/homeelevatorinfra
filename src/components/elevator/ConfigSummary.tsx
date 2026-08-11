@@ -1,5 +1,5 @@
 import { ArrowRight } from 'lucide-react';
-import { findInterior, findLighting } from '../../data/colors';
+import { findGlass, findInterior, findLighting } from '../../data/colors';
 import { CONFIG_DISCLAIMER, findTier, formatRupees } from '../../data/pricing';
 import { finishLabel, useElevatorConfig } from '../../hooks/useElevatorConfig';
 import { useCountUp } from '../../hooks/useScrollAnimation';
@@ -46,6 +46,7 @@ export default function ConfigSummary({ className = '' }: { className?: string }
       <dl className="mt-7">
         <Row label="Model" value={findElevator(config.model).shortName} />
         <Row label="Finish" value={finishLabel(config)} />
+        <Row label="Glass" value={findGlass(config.glass).name} />
         <Row label="Interior" value={findInterior(config.interior).name} />
         <Row label="Lighting" value={findLighting(config.lighting).name} />
       </dl>

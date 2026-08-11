@@ -17,13 +17,18 @@ export type FinishFamily = 'standard' | 'textured' | 'metallic';
 export type ElevatorConfiguration = {
   model: ElevatorModel;
   floors: FloorsKey;
-  /** Finish id, e.g. 'black' — see src/data/colors.ts */
+  /**
+   * Finish id, e.g. 'black' — see src/data/colors.ts. This is the *frame* colour:
+   * it drives the GLB's " frame color" material.
+   */
   exteriorColor: string;
   /** Finish family of the selected exterior finish, e.g. 'metallic'. */
   texture: FinishFamily;
-  /** Interior id, e.g. 'marble' */
+  /** Glazing id, e.g. 'smoke' — drives "[Translucent Glass Gray]". */
+  glass: string;
+  /** Interior id, e.g. 'marble' — drives the "base color" floor plates. */
   interior: string;
-  /** Lighting id, e.g. 'premium' */
+  /** Lighting id, e.g. 'premium' — drives the real scene lights. */
   lighting: string;
 };
 

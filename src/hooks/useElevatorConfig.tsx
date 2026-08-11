@@ -8,6 +8,7 @@ export const DEFAULT_CONFIGURATION: ElevatorConfiguration = {
   floors: 'G+2',
   exteriorColor: 'black',
   texture: 'standard',
+  glass: 'clear',
   interior: 'marble',
   lighting: 'premium',
 };
@@ -20,6 +21,7 @@ type ConfigContext = {
   setFloors: (floors: FloorsKey) => void;
   /** Selecting a finish also records its family, so 3D materials can branch on it. */
   setFinish: (id: string, family: FinishFamily) => void;
+  setGlass: (id: string) => void;
   setInterior: (id: string) => void;
   setLighting: (id: string) => void;
   reset: () => void;
@@ -41,6 +43,7 @@ export function ElevatorConfigProvider({ children }: { children: ReactNode }) {
     (id: string, family: FinishFamily) => setConfig((c) => ({ ...c, exteriorColor: id, texture: family })),
     [],
   );
+  const setGlass = useCallback((glass: string) => setConfig((c) => ({ ...c, glass })), []);
   const setInterior = useCallback((interior: string) => setConfig((c) => ({ ...c, interior })), []);
   const setLighting = useCallback((lighting: string) => setConfig((c) => ({ ...c, lighting })), []);
   const reset = useCallback(() => setConfig(DEFAULT_CONFIGURATION), []);
@@ -52,11 +55,12 @@ export function ElevatorConfigProvider({ children }: { children: ReactNode }) {
       setModel,
       setFloors,
       setFinish,
+      setGlass,
       setInterior,
       setLighting,
       reset,
     }),
-    [config, setModel, setFloors, setFinish, setInterior, setLighting, reset],
+    [config, setModel, setFloors, setFinish, setGlass, setInterior, setLighting, reset],
   );
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;

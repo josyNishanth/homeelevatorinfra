@@ -19,9 +19,11 @@ export default function Footer() {
               installed and commissioned by one team.
             </p>
             <div className="mt-8 flex flex-col gap-2">
-              <a href={brand.phoneHref} className="text-cream/80 underline-offset-4 hover:underline">
-                {brand.phone}
-              </a>
+              {brand.phones.map((p) => (
+                <a key={p.href} href={p.href} className="text-cream/80 underline-offset-4 hover:underline">
+                  {p.display}
+                </a>
+              ))}
               <a href={`mailto:${brand.email}`} className="text-cream/80 underline-offset-4 hover:underline">
                 {brand.email}
               </a>

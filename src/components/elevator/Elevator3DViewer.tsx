@@ -4,6 +4,7 @@ import { Canvas, useThree } from '@react-three/fiber';
 import { OrbitControls, useProgress } from '@react-three/drei';
 import { MathUtils, type PerspectiveCamera } from 'three';
 import { RotateCw } from 'lucide-react';
+import type { ElevatorConfiguration } from '../../types/elevator';
 import { prefersReducedMotion } from '../../hooks/useScrollAnimation';
 import ElevatorLighting from './ElevatorLighting';
 import ElevatorModel, { ELEVATOR_MODEL_URL, type ModelMetrics } from './ElevatorModel';
@@ -110,6 +111,8 @@ function ViewerLoader() {
 /* ------------------------------------------------------------------ view ---- */
 
 type Props = {
+  /** Drives the GLB's materials and the scene lights in real time. */
+  config: ElevatorConfiguration;
   alt?: string;
   modelUrl?: string;
   glassTransparency?: boolean;
@@ -126,6 +129,7 @@ type Props = {
 };
 
 export default function Elevator3DViewer({
+  config,
   alt = 'Interactive 3D model of a pneumatic vacuum home elevator',
   modelUrl = ELEVATOR_MODEL_URL,
   glassTransparency = true,
@@ -185,8 +189,14 @@ export default function Elevator3DViewer({
           role="img"
         >
           <Suspense fallback={null}>
-            <ElevatorModel url={modelUrl} glassTransparency={glassTransparency} onMeasured={handleMeasured} />
+            <ElevatorModel
+              url={modelUrl}
+              config={config}
+              glassTransparency={glassTransparency}
+              onMeasured={handleMeasured}
+            />
             <ElevatorLighting
+              preset={config.lighting}
               groundY={0}
               footprint={metrics?.footprint ?? 1.2}
               height={metrics?.height ?? 5.5}
