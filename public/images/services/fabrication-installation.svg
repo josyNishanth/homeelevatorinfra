@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000">
+  <defs>
+    <radialGradient id="vig" cx=".5" cy=".45" r=".78">
+      <stop offset=".55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".22"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="#1B1E23"/>
+  
+    <defs><linearGradient id="stx" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#474a50"/><stop offset="1" stop-color="#0e1114"/>
+    </linearGradient></defs>
+    <rect width="1600" height="1000" fill="url(#stx)"/>
+    <path d="M0 880 L1600 830 L1600 1000 L0 1000 Z" fill="#090b0e"/>
+
+    <rect x="1050" y="90" width="350" height="790" fill="#F1F3F6" opacity=".16"/>
+    <rect x="1094" y="300" width="262" height="420" fill="#F1F3F6" opacity=".22"/>
+    <rect x="1094" y="300" width="262" height="26" fill="#B9955A" opacity=".8"/>
+    <rect x="1094" y="686" width="262" height="34" fill="#DFE2E7" opacity=".45"/>
+    <line x1="1120" y1="510" x2="1330" y2="510" stroke="#F1F3F6" stroke-width="7" stroke-linecap="round" opacity=".6"/>
+
+    <g stroke="#DFE2E7" stroke-width="2.5" opacity=".32">
+      <line x1="180" y1="90" x2="470" y2="300"/>
+      <line x1="470" y1="300" x2="180" y2="510"/>
+      <line x1="180" y1="510" x2="470" y2="720"/>
+      <line x1="470" y1="720" x2="180" y2="880"/>
+      <line x1="760" y1="90" x2="470" y2="300"/>
+      <line x1="470" y1="300" x2="760" y2="510"/>
+      <line x1="760" y1="510" x2="470" y2="720"/>
+      <line x1="470" y1="720" x2="760" y2="880"/>
+      <line x1="760" y1="90" x2="1050" y2="300"/>
+      <line x1="1050" y1="300" x2="760" y2="510"/>
+      <line x1="760" y1="510" x2="1050" y2="720"/>
+      <line x1="1050" y1="720" x2="760" y2="880"/>
+    </g>
+
+    <g stroke="#DFE2E7" stroke-width="9" opacity=".6" stroke-linecap="square">
+      <line x1="180" y1="90" x2="180" y2="880"/>
+      <line x1="470" y1="90" x2="470" y2="880"/>
+      <line x1="760" y1="90" x2="760" y2="880"/>
+      <line x1="1050" y1="90" x2="1050" y2="880"/>
+      <line x1="1400" y1="90" x2="1400" y2="880"/>
+    </g>
+    <g stroke="#DFE2E7" stroke-width="5" opacity=".45">
+      <line x1="180" y1="90" x2="1400" y2="90"/>
+      <line x1="180" y1="300" x2="1400" y2="300"/>
+      <line x1="180" y1="510" x2="1400" y2="510"/>
+      <line x1="180" y1="720" x2="1400" y2="720"/>
+      <line x1="180" y1="880" x2="1400" y2="880"/>
+    </g>
+    <g fill="#DFE2E7" opacity=".55">
+      <rect x="160" y="880" width="40" height="30"/>
+      <rect x="450" y="880" width="40" height="30"/>
+      <rect x="740" y="880" width="40" height="30"/>
+      <rect x="1030" y="880" width="40" height="30"/>
+      <rect x="1380" y="880" width="40" height="30"/>
+    </g>
+    <rect x="180" y="64" width="1220" height="8" fill="#B9955A" opacity=".55"/>
+  <rect width="1600" height="1000" fill="url(#vig)"/>
+</svg>

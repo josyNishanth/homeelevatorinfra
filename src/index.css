@@ -1,0 +1,125 @@
+@import 'tailwindcss';
+
+/* ------------------------------------------------------------------ theme --
+   Palette is fixed by the brand brief. Gold is an accent only: hairlines,
+   indicators, one detail per section — never a fill for large areas.
+--------------------------------------------------------------------------- */
+@theme {
+  --color-navy: #082b5c;
+  --color-navy-deep: #061c3c;
+  --color-navy-lift: #0c3a76;
+  --color-charcoal: #171a1f;
+  --color-charcoal-lift: #23272e;
+  --color-cream: #f7f7f5;
+  --color-cream-dim: #eeece7;
+  --color-gold: #b9955a;
+  --color-gold-lift: #d3b785;
+  --color-ink: #111827;
+
+  /* Archivo carries a width axis — headlines are set narrow so the type itself
+     reads vertical, like the shaft it sells. */
+  --font-display: 'Archivo', 'Archivo Narrow', 'Arial Narrow', ui-sans-serif, sans-serif;
+  --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'Martian Mono', ui-monospace, 'SFMono-Regular', 'Cascadia Mono', monospace;
+
+  --text-hero: clamp(2.9rem, 7.1vw, 6.75rem);
+  --text-display: clamp(2.4rem, 5.4vw, 5rem);
+  --text-title: clamp(1.75rem, 3.3vw, 3rem);
+  --text-lead: clamp(1.0625rem, 1.25vw, 1.3125rem);
+
+  --ease-brand: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-swift: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--color-cream);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background-color: var(--color-navy);
+    color: var(--color-cream);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 3px;
+  }
+
+  img {
+    max-width: 100%;
+    display: block;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+    color: inherit;
+  }
+}
+
+/* ------------------------------------------------------------- utilities -- */
+@utility display-type {
+  font-family: var(--font-display);
+  font-stretch: 84%;
+  font-weight: 600;
+  line-height: 0.94;
+  letter-spacing: -0.018em;
+  text-wrap: balance;
+}
+
+@utility label-type {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 0.6875rem;
+  line-height: 1.2;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+@utility hairline {
+  border-color: color-mix(in srgb, currentColor 16%, transparent);
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Word-mask reveal: the inner span starts below its clipped parent. */
+@utility mask-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  padding-bottom: 0.06em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

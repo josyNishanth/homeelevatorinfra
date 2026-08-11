@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000">
+  <defs>
+    <radialGradient id="vig" cx=".5" cy=".45" r=".78">
+      <stop offset=".55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".22"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="#E7E4DD"/>
+  
+    <rect x="0" y="0" width="960" height="1000" fill="#D8D4CB"/>
+    <rect x="960" y="0" width="640" height="1000" fill="#BDB8AD"/>
+    <g stroke="#2B2E33" stroke-width="2" opacity=".18">
+      <line x1="80" y1="300" x2="880" y2="300"/><line x1="80" y1="560" x2="880" y2="560"/><line x1="80" y1="820" x2="880" y2="820"/>
+    </g>
+    <rect x="948" y="0" width="4" height="1000" fill="#B9955A" opacity=".55"/>
+    
+    <rect x="1050" y="80" width="330" height="800" rx="165" fill="#FFFFFF" opacity=".2"/>
+    <rect x="1050" y="80" width="330" height="800" rx="165" fill="none" stroke="#2B2E33" stroke-width="5" stroke-opacity=".5"/>
+    <rect x="1060" y="88" width="310" height="72" rx="8" fill="#2B2E33" opacity=".45"/>
+    <rect x="1060" y="776" width="310" height="88" rx="8" fill="#2B2E33" opacity=".45"/>
+    <rect x="1060" y="164" width="310" height="5" fill="#B9955A" opacity=".85"/>
+    <line x1="1123" y1="496" x2="1307" y2="496" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" opacity=".6"/>
+    <line x1="1215" y1="176" x2="1215" y2="768" stroke="#2B2E33" stroke-width="2" opacity=".3"/>
+    <path d="M1050 300 L1380 120 L1380 200 L1050 380 Z" fill="#FFFFFF" opacity=".14"/>
+  <rect width="1600" height="1000" fill="url(#vig)"/>
+</svg>
