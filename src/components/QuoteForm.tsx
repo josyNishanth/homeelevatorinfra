@@ -25,8 +25,13 @@ type Fields = {
 
 type Errors = Partial<Record<keyof Fields, string>>;
 
+/* The form sits on a paper sheet, so fields are ink on cream, not cream on navy. */
 const fieldShell =
-  'w-full border-0 border-b border-cream/25 bg-transparent pt-6 pb-3 text-cream placeholder:text-cream/35 transition-colors duration-300 focus:border-gold focus:outline-none';
+  'w-full border-0 border-b border-ink/20 bg-transparent pt-5 pb-3 text-ink placeholder:text-ink/35 transition-colors duration-300 focus:border-gold focus:outline-none';
+
+/** Cream sheet lifted off the navy section — the "paper" the request is written on. */
+const sheet =
+  'relative bg-gradient-to-b from-white to-cream-dim p-7 shadow-[0_50px_90px_-40px_rgba(6,28,60,0.8)] sm:p-9 md:p-11';
 
 function Field({
   label,
@@ -52,7 +57,7 @@ function Field({
   const id = `quote-${name}`;
   return (
     <div className="relative">
-      <label htmlFor={id} className="label-type text-cream/45">
+      <label htmlFor={id} className="label-type text-ink/45">
         {label}
         {required && <span className="text-gold"> *</span>}
       </label>
@@ -67,10 +72,10 @@ function Field({
         inputMode={inputMode}
         aria-invalid={error ? true : undefined}
         aria-describedby={error ? `${id}-error` : undefined}
-        className={`${fieldShell} ${error ? 'border-gold' : ''}`}
+        className={`${fieldShell} ${error ? 'border-alert' : ''}`}
       />
       {error && (
-        <p id={`${id}-error`} className="mt-2 text-xs text-gold">
+        <p id={`${id}-error`} className="mt-2 text-xs text-alert">
           {error}
         </p>
       )}
@@ -148,12 +153,13 @@ export default function QuoteForm() {
   ].join(' · ');
 
   return (
-    <Section id="contact" tone="navy" pad="lg">
+    // Own page now, so it clears the fixed navbar itself.
+    <Section id="quote" tone="navy" pad="lg" className="pt-32 md:pt-44">
       <Container>
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-5">
             <Reveal>
-              <Eyebrow className="text-cream/50">Contact</Eyebrow>
+              <Eyebrow className="text-cream/50">Get a quote</Eyebrow>
             </Reveal>
             <MaskedHeading
               as="h2"
@@ -202,44 +208,51 @@ export default function QuoteForm() {
 
           <div className="lg:col-span-6 lg:col-start-7">
             {sent ? (
-              <div ref={panel} className="border border-gold/40 bg-navy-deep/60 p-8 md:p-10">
+              /* ponytail: submit-confirmation slot — drop the animation in here later. */
+              <div ref={panel} className={sheet}>
+                <span aria-hidden="true" className="absolute inset-x-0 top-0 h-px bg-gold" />
                 <span
                   data-done
                   className="flex h-14 w-14 items-center justify-center rounded-full bg-gold text-charcoal"
                 >
                   <Check size={24} strokeWidth={1.8} aria-hidden="true" />
                 </span>
-                <h3 data-done className="display-type mt-8 text-title text-cream">
+                <h3 data-done className="display-type mt-8 text-title text-ink">
                   Thank you.
                 </h3>
-                <p data-done className="mt-4 max-w-md text-lead text-cream/70">
+                <p data-done className="mt-4 max-w-md text-lead text-ink/70">
                   Our team will contact you shortly.
                 </p>
-                <dl data-done className="mt-9 border-t border-cream/15 pt-5">
+                <dl data-done className="mt-9 border-t border-ink/15 pt-5">
                   <div className="flex items-baseline justify-between gap-6 py-2">
-                    <dt className="label-type text-cream/45">Name</dt>
-                    <dd className="text-sm text-cream/85">{fields.name}</dd>
+                    <dt className="label-type text-ink/45">Name</dt>
+                    <dd className="text-sm text-ink/85">{fields.name}</dd>
                   </div>
                   <div className="flex items-baseline justify-between gap-6 py-2">
-                    <dt className="label-type text-cream/45">Phone</dt>
-                    <dd className="text-sm text-cream/85">{fields.phone}</dd>
+                    <dt className="label-type text-ink/45">Phone</dt>
+                    <dd className="text-sm text-ink/85">{fields.phone}</dd>
                   </div>
                   <div className="flex items-baseline justify-between gap-6 py-2">
-                    <dt className="label-type text-cream/45">Configuration</dt>
-                    <dd className="max-w-[18rem] text-right text-sm text-cream/85">{recap}</dd>
+                    <dt className="label-type text-ink/45">Configuration</dt>
+                    <dd className="max-w-[18rem] text-right text-sm text-ink/85">{recap}</dd>
                   </div>
                 </dl>
                 <div data-done className="mt-8 flex flex-wrap gap-4">
                   <Button href={brand.phoneHref} variant="gold" icon={<Phone size={15} strokeWidth={1.6} />}>
                     Call us now
                   </Button>
-                  <Button variant="onDark" onClick={() => setSent(false)}>
+                  <Button variant="outline" onClick={() => setSent(false)}>
                     Send another request
                   </Button>
                 </div>
               </div>
             ) : (
-              <form onSubmit={onSubmit} noValidate className="grid gap-x-8 gap-y-7 sm:grid-cols-2">
+              <form
+                onSubmit={onSubmit}
+                noValidate
+                className={`${sheet} grid gap-x-8 gap-y-6 sm:grid-cols-2`}
+              >
+                <span aria-hidden="true" className="absolute inset-x-0 top-0 h-px bg-gold" />
                 <Field
                   label="Name"
                   name="name"
@@ -281,7 +294,7 @@ export default function QuoteForm() {
                 />
 
                 <div>
-                  <label htmlFor="quote-floors" className="label-type text-cream/45">
+                  <label htmlFor="quote-floors" className="label-type text-ink/45">
                     Number of floors
                   </label>
                   <select
@@ -300,7 +313,7 @@ export default function QuoteForm() {
                 </div>
 
                 <div>
-                  <label htmlFor="quote-type" className="label-type text-cream/45">
+                  <label htmlFor="quote-type" className="label-type text-ink/45">
                     Elevator type
                   </label>
                   <select
@@ -322,7 +335,7 @@ export default function QuoteForm() {
                 </div>
 
                 <fieldset className="sm:col-span-2">
-                  <legend className="label-type text-cream/45">Home</legend>
+                  <legend className="label-type text-ink/45">Home</legend>
                   <div className="mt-4 flex flex-wrap gap-3">
                     {[
                       { id: 'new', label: 'New home' },
@@ -333,7 +346,7 @@ export default function QuoteForm() {
                         className={`label-type relative cursor-pointer border px-5 py-3 transition-colors duration-300 ${
                           fields.homeStage === option.id
                             ? 'border-gold bg-gold text-charcoal'
-                            : 'border-cream/25 text-cream/60 hover:border-cream/50 hover:text-cream'
+                            : 'border-ink/20 text-ink/60 hover:border-ink/45 hover:text-ink'
                         }`}
                       >
                         <input
@@ -355,7 +368,7 @@ export default function QuoteForm() {
                 </fieldset>
 
                 <div className="sm:col-span-2">
-                  <label htmlFor="quote-message" className="label-type text-cream/45">
+                  <label htmlFor="quote-message" className="label-type text-ink/45">
                     Message
                   </label>
                   <textarea
@@ -373,7 +386,7 @@ export default function QuoteForm() {
                   <Button type="submit" variant="gold" icon={<ArrowUpRight size={15} strokeWidth={1.6} />}>
                     Request a quote
                   </Button>
-                  <Button href={brand.phoneHref} variant="onDark" icon={<Phone size={15} strokeWidth={1.6} />}>
+                  <Button href={brand.phoneHref} variant="outline" icon={<Phone size={15} strokeWidth={1.6} />}>
                     Book a site visit
                   </Button>
                 </div>

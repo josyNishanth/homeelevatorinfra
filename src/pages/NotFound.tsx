@@ -35,7 +35,7 @@ export default function NotFound() {
         </nav>
 
         <div className="mt-10">
-          <Button to="/contact" variant="gold" icon={<ArrowUpRight size={15} strokeWidth={1.6} />}>
+          <Button to="/quote" variant="gold" icon={<ArrowUpRight size={15} strokeWidth={1.6} />}>
             Get a quote
           </Button>
         </div>

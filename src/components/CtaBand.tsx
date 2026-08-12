@@ -33,7 +33,7 @@ export default function CtaBand({
 
           <Reveal y={18} delay={0.15} className="lg:col-span-4 lg:col-start-9">
             <div className="flex flex-wrap gap-4">
-              <Button to="/contact" variant="gold" icon={<ArrowUpRight size={15} strokeWidth={1.6} />}>
+              <Button to="/quote" variant="gold" icon={<ArrowUpRight size={15} strokeWidth={1.6} />}>
                 Get a quote
               </Button>
               <Button href={brand.phoneHref} variant="onDark" icon={<Phone size={15} strokeWidth={1.6} />}>

@@ -52,7 +52,7 @@ export default function StickyCTA() {
           <div>
             <p className="label-type text-cream/50">Need help choosing?</p>
             <Link
-              to="/contact"
+              to="/quote"
               className="display-type mt-1 flex items-center gap-2 text-lg text-cream transition-colors hover:text-gold"
             >
               Get a quote
@@ -89,7 +89,7 @@ export default function StickyCTA() {
             <MessageCircle size={15} strokeWidth={1.7} aria-hidden="true" />
             WhatsApp
           </a>
-          <Link to="/contact" className="label-type flex items-center justify-center gap-2 bg-navy py-4 text-cream">
+          <Link to="/quote" className="label-type flex items-center justify-center gap-2 bg-navy py-4 text-cream">
             Get quote
           </Link>
         </div>

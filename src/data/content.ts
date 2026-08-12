@@ -67,7 +67,12 @@ export const pageMeta: Record<string, { title: string; description: string }> = 
       'Why homeowners, architects and builders choose Home Elevator Infra for residential elevators — space, design, finishes and installation.',
   },
   '/contact': {
-    title: 'Get a Quote or Book a Site Visit | Home Elevator Infra',
+    title: 'Contact Home Elevator Infra | Phone, Email & Site Visits',
+    description:
+      'Talk to the Home Elevator Infra team — phone, email and site visits for home elevator projects across India.',
+  },
+  '/quote': {
+    title: 'Get a Quote for a Home Elevator | Home Elevator Infra',
     description:
       'Request a written quotation for a home elevator, or book a site visit with the Home Elevator Infra team.',
   },

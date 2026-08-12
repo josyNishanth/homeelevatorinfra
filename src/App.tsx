@@ -16,6 +16,7 @@ import Customize from './pages/Customize';
 import ProjectsPage from './pages/ProjectsPage';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import Quote from './pages/Quote';
 import NotFound from './pages/NotFound';
 
 /**
@@ -41,6 +42,7 @@ export default function App() {
           <Route path="/projects" element={<ProjectsPage />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/quote" element={<Quote />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

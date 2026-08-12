@@ -145,7 +145,7 @@ export default function Navbar() {
           <div className="flex items-center gap-3">
             <span className="hidden sm:block">
               <Button
-                to="/contact"
+                to="/quote"
                 variant={solid ? 'primary' : 'onDark'}
                 className="px-6 py-3.5"
                 icon={<ArrowUpRight size={15} strokeWidth={1.6} />}
@@ -197,7 +197,7 @@ export default function Navbar() {
         </nav>
 
         <div data-nav-item className="flex flex-col gap-4">
-          <Button to="/contact" variant="gold" onClick={() => setOpen(false)} className="w-full">
+          <Button to="/quote" variant="gold" onClick={() => setOpen(false)} className="w-full">
             Get a quote
           </Button>
           <Button href={brand.phoneHref} variant="onDark" onClick={() => setOpen(false)} className="w-full">

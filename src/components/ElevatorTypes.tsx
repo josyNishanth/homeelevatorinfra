@@ -73,7 +73,7 @@ function ProductBlock({ index }: { index: number }) {
           >
             Personalise this lift
           </Button>
-          <Button to="/contact" variant="outline">
+          <Button to="/quote" variant="outline">
             Get a quote
           </Button>
         </div>

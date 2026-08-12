@@ -4,7 +4,7 @@ import { railStops } from '../data/content';
 import { ScrollTrigger, gsap, prefersReducedMotion } from '../hooks/useScrollAnimation';
 
 /**
- * The signature element: a hairline shaft down the left edge of the page with a
+ * The signature element: a hairline shaft down the right edge of the page with a
  * gold cab that travels as you scroll, passing each section like a floor stop.
  * It is the page's progress indicator, drawn in the product's own language.
  *
@@ -49,21 +49,21 @@ export default function ShaftRail() {
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none fixed top-0 left-6 z-30 hidden h-screen w-px items-center xl:flex"
+      className="pointer-events-none fixed top-0 right-6 z-30 hidden h-screen w-px items-center xl:flex"
     >
       {/* A mid grey stays legible over both the cream and navy sections. */}
       <div ref={rail} className="relative h-[62vh] w-px bg-[#8b8d92]/45">
         {railStops.map((stop, i) => (
           <span
             key={stop.id}
-            className={`absolute left-0 block h-px transition-all duration-500 ease-brand ${
+            className={`absolute right-0 block h-px transition-all duration-500 ease-brand ${
               i === active ? 'w-4 bg-gold' : 'w-2 bg-[#8b8d92]/60'
             }`}
             style={{ top: `${(i / (railStops.length - 1)) * 100}%` }}
           />
         ))}
 
-        <div ref={cab} className="absolute -left-[3px] top-0 h-9 w-[7px] bg-gold" />
+        <div ref={cab} className="absolute -right-[3px] top-0 h-9 w-[7px] bg-gold" />
       </div>
     </div>
   );

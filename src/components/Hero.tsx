@@ -87,7 +87,7 @@ export default function Hero() {
                 </Button>
               </span>
               <span data-hero-cta className="inline-block">
-                <Button to="/contact" variant="onDark" icon={<ArrowUpRight size={15} strokeWidth={1.6} />}>
+                <Button to="/quote" variant="onDark" icon={<ArrowUpRight size={15} strokeWidth={1.6} />}>
                   Get a quote
                 </Button>
               </span>
@@ -97,7 +97,13 @@ export default function Hero() {
           {/* Product. Swap ElevatorViewer's internals for a 3D canvas later —
               this column's layout does not change. */}
           <div className="lg:col-span-5 lg:col-start-8">
-            <div data-hero-visual className="relative mx-auto max-w-md lg:mr-0 lg:ml-auto lg:max-w-[30rem]">
+            {/* The left edge dissolves into the hero background rather than
+                stopping at a hard border, so the photo reads as part of the
+                environment instead of a pasted-in card. */}
+            <div
+              data-hero-visual
+              className="relative mx-auto max-w-md lg:mr-0 lg:ml-auto lg:max-w-[30rem] [-webkit-mask-image:linear-gradient(to_right,transparent,#000_26%)] [mask-image:linear-gradient(to_right,transparent,#000_26%)]"
+            >
               <ElevatorViewer
                 config={config}
                 mode="image"
