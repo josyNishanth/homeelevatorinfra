@@ -1,4 +1,5 @@
 import Hero from '../components/Hero';
+import RotundaScene from '../components/scene/RotundaScene';
 import TrustStrip from '../components/TrustStrip';
 import ProductShowcase from '../components/ProductShowcase';
 import Pricing from '../components/Pricing';
@@ -14,6 +15,9 @@ export default function Home() {
   return (
     <>
       <Hero />
+      {/* The hero's navy carries straight into the rotunda, so the cinematic
+          sequence reads as the hero continuing rather than a new page. */}
+      <RotundaScene />
       <TrustStrip />
       <ProductShowcase />
       <Pricing />

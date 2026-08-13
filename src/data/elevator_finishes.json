@@ -1,0 +1,110 @@
+{
+  "Elevator_Frame_Black": {
+    "baseColorLinear": [
+      0.102,
+      0.102,
+      0.102
+    ],
+    "baseColorHex": "#595959",
+    "metalness": 1.0,
+    "roughness": 0.25,
+    "opacity": 1.0,
+    "transparent": false
+  },
+  "Elevator_Frame_Bronze": {
+    "baseColorLinear": [
+      0.549,
+      0.3529,
+      0.2039
+    ],
+    "baseColorHex": "#C3A07C",
+    "metalness": 1.0,
+    "roughness": 0.3,
+    "opacity": 1.0,
+    "transparent": false
+  },
+  "Elevator_Frame_Champagne": {
+    "baseColorLinear": [
+      0.8314,
+      0.6863,
+      0.4118
+    ],
+    "baseColorHex": "#EBD7AB",
+    "metalness": 1.0,
+    "roughness": 0.16,
+    "opacity": 1.0,
+    "transparent": false
+  },
+  "Elevator_Frame_Silver": {
+    "baseColorLinear": [
+      0.7843,
+      0.7882,
+      0.7961
+    ],
+    "baseColorHex": "#E5E5E6",
+    "metalness": 1.0,
+    "roughness": 0.12,
+    "opacity": 1.0,
+    "transparent": false
+  },
+  "Elevator_Glass_Clear": {
+    "baseColorLinear": [
+      0.9176,
+      0.949,
+      0.9529
+    ],
+    "baseColorHex": "#F5F9F9",
+    "metalness": 0.0,
+    "roughness": 0.03,
+    "opacity": 0.15,
+    "transparent": true
+  },
+  "Elevator_Glass_Smoked": {
+    "baseColorLinear": [
+      0.5765,
+      0.6706,
+      0.698
+    ],
+    "baseColorHex": "#C7D5D9",
+    "metalness": 0.0,
+    "roughness": 0.04,
+    "opacity": 0.3,
+    "transparent": true
+  },
+  "Elevator_Interior_Dark": {
+    "baseColorLinear": [
+      0.1333,
+      0.149,
+      0.1647
+    ],
+    "baseColorHex": "#666B70",
+    "metalness": 0.0,
+    "roughness": 0.3,
+    "opacity": 1.0,
+    "transparent": false
+  },
+  "Elevator_Interior_Walnut": {
+    "baseColorLinear": [
+      0.251,
+      0.1608,
+      0.1137
+    ],
+    "baseColorHex": "#896F5E",
+    "metalness": 0.0,
+    "roughness": 0.28,
+    "opacity": 1.0,
+    "transparent": false
+  },
+  "Elevator_Interior_Warm": {
+    "baseColorLinear": [
+      0.949,
+      0.9176,
+      0.8549
+    ],
+    "baseColorHex": "#F9F5ED",
+    "metalness": 0.0,
+    "roughness": 0.32,
+    "opacity": 1.0,
+    "transparent": false
+  }
+}
