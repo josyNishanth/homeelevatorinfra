@@ -3,11 +3,12 @@ import type { ComponentRef, ReactNode } from 'react';
 import { Canvas, useThree } from '@react-three/fiber';
 import { OrbitControls, useProgress } from '@react-three/drei';
 import { MathUtils, type PerspectiveCamera } from 'three';
-import { RotateCw } from 'lucide-react';
+import { RotateCw, ZoomIn } from 'lucide-react';
 import type { ElevatorConfiguration } from '../../types/elevator';
 import { prefersReducedMotion } from '../../hooks/useScrollAnimation';
 import ElevatorLighting from './ElevatorLighting';
 import ElevatorModel, { ELEVATOR_MODEL_URL, type ModelMetrics } from './ElevatorModel';
+import ViewerBackdrop from './ViewerBackdrop';
 
 type ControlsRef = ComponentRef<typeof OrbitControls>;
 
@@ -96,13 +97,13 @@ function ViewerLoader() {
       }`}
     >
       <div className="flex flex-col items-center gap-4">
-        <div className="h-px w-28 overflow-hidden bg-cream/20">
+        <div className="h-px w-28 overflow-hidden bg-ink/15">
           <span
             className="block h-px bg-gold transition-[width] duration-300 ease-out"
             style={{ width: `${Math.round(progress)}%` }}
           />
         </div>
-        <p className="label-type text-cream/50">Loading elevator</p>
+        <p className="label-type text-ink/45">Loading elevator</p>
       </div>
     </div>
   );
@@ -116,7 +117,7 @@ type Props = {
   alt?: string;
   modelUrl?: string;
   glassTransparency?: boolean;
-  /** Overlay hint text. Pass null to hide it. */
+  /** First line of the control legend. Pass null to hide the legend entirely. */
   hint?: string | null;
   className?: string;
   /**
@@ -133,7 +134,7 @@ export default function Elevator3DViewer({
   alt = 'Interactive 3D model of a pneumatic vacuum home elevator',
   modelUrl = ELEVATOR_MODEL_URL,
   glassTransparency = true,
-  hint = 'Drag to explore',
+  hint = 'Drag to rotate',
   className = '',
   canvasClassName = '',
   children,
@@ -172,13 +173,7 @@ export default function Elevator3DViewer({
 
   return (
     <div className={`relative isolate h-full w-full ${className}`}>
-      {/* Studio sweep, in CSS rather than a 3D backdrop, so nothing competes
-          with the product. Dark because the GLB's frame material is pure white —
-          on a light ground the elevator disappeared into the background. */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 bg-[radial-gradient(115%_85%_at_50%_12%,#1E2A3B_0%,#141922_52%,#0A0D12_100%)]"
-      />
+      <ViewerBackdrop />
 
         <Canvas
           camera={{ fov: 35, near: 0.1, far: 200, position: [3, 3, 6] }}
@@ -222,18 +217,28 @@ export default function Elevator3DViewer({
 
       <ViewerLoader />
 
-      {/* Bottom-left, so it clears any panel a caller overlays on the right. */}
+      {/* Control legend. Bottom-left, so it clears any panel a caller overlays
+          on the right, and it sits on bare grid rather than over the product.
+          It dims once the visitor has taken hold instead of disappearing —
+          someone who forgets which gesture zooms should not have to reload the
+          page to be told again. */}
       {hint && (
         <div
           aria-hidden="true"
           className={`pointer-events-none absolute bottom-5 left-5 z-10 transition-opacity duration-700 ${
-            touched ? 'opacity-0' : 'opacity-100'
+            touched ? 'opacity-45' : 'opacity-100'
           }`}
         >
-          <span className="label-type flex items-center gap-2.5 border border-cream/15 bg-charcoal/70 px-4 py-2.5 text-cream/70 backdrop-blur-sm">
-            <RotateCw size={13} strokeWidth={1.8} className="text-gold" />
-            {hint}
-          </span>
+          <div className="label-type flex flex-col gap-2.5 border border-ink/10 bg-cream/85 px-4 py-3 text-ink/65 backdrop-blur-sm">
+            <span className="flex items-center gap-2.5">
+              <RotateCw size={13} strokeWidth={1.8} className="shrink-0 text-gold" />
+              {hint}
+            </span>
+            <span className="flex items-center gap-2.5">
+              <ZoomIn size={13} strokeWidth={1.8} className="shrink-0 text-gold" />
+              Scroll to zoom
+            </span>
+          </div>
         </div>
       )}
 

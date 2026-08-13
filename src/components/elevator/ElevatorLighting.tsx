@@ -140,15 +140,18 @@ export default function ElevatorLighting({ preset = 'premium', groundY = 0, foot
         <Lightformer form="rect" intensity={0.5} position={[0, height * 0.3, -height]} scale={[8, 8, 1]} rotation-y={Math.PI} />
       </Environment>
 
-      {/* Soft ground contact instead of shadow maps: no harsh edges, cheaper. */}
+      {/* Soft ground contact instead of shadow maps: no harsh edges, cheaper.
+          Weighted a little heavier than a dark scene would need — on the light
+          studio floor this pool is the only thing stopping the cab from
+          floating, and it is what separates the pale finishes from the ground. */}
       <ContactShadows
         position={[0, groundY + 0.002, 0]}
         scale={Math.max(footprint * 5, 6)}
         resolution={1024}
         far={height * 0.4}
         blur={2.8}
-        opacity={0.42}
-        color="#2b2f36"
+        opacity={0.52}
+        color="#1b2430"
       />
     </>
   );

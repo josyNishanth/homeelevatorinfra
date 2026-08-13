@@ -64,10 +64,12 @@ export default function ElevatorConfigurator() {
                   canvasClassName="lg:!w-[calc(100%-20rem)]"
                 >
                   <div className="pointer-events-none absolute inset-x-0 top-0 flex items-center justify-between p-5">
-                    <span className="label-type bg-cream/85 px-3 py-2 text-ink backdrop-blur-sm">
+                    {/* Light ground: the finish chip needs a hairline to hold
+                        its shape, the height chip carries the dark weight. */}
+                    <span className="label-type border border-ink/10 bg-cream/90 px-3 py-2 text-ink backdrop-blur-sm">
                       {finish.name}
                     </span>
-                    <span className="label-type bg-charcoal/80 px-3 py-2 text-cream backdrop-blur-sm">
+                    <span className="label-type bg-charcoal/85 px-3 py-2 text-cream backdrop-blur-sm">
                       {config.floors}
                     </span>
                   </div>

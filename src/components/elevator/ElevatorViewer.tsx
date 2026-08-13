@@ -4,6 +4,7 @@ import type { ElevatorConfiguration, ViewerMode } from '../../types/elevator';
 import { gsap, prefersReducedMotion } from '../../hooks/useScrollAnimation';
 import { resolveMaterials } from './ElevatorMaterials';
 import ViewerErrorBoundary from './ViewerErrorBoundary';
+import ViewerBackdrop from './ViewerBackdrop';
 
 /**
  * three.js, @react-three/fiber and @react-three/drei are a large dependency, and
@@ -27,7 +28,7 @@ type Props = {
   /** Skip lazy-loading for above-the-fold use. */
   priority?: boolean;
   children?: ReactNode;
-  /** 3D only: hide or replace the "Drag to explore" hint. */
+  /** 3D only: hide the control legend (null) or replace its first line. */
   hint?: string | null;
   /** 3D only: render the GLB's glazing exactly as exported (opaque). */
   glassTransparency?: boolean;
@@ -75,8 +76,9 @@ export default function ElevatorViewer(props: Props) {
 /** Shown while the 3D chunk downloads. */
 function ViewerSkeleton() {
   return (
-    <div className="absolute inset-0 flex items-center justify-center bg-[radial-gradient(115%_85%_at_50%_12%,#1E2A3B_0%,#141922_52%,#0A0D12_100%)]">
-      <p className="label-type text-cream/40">Preparing 3D viewer</p>
+    <div className="absolute inset-0 flex items-center justify-center">
+      <ViewerBackdrop />
+      <p className="label-type relative text-ink/40">Preparing 3D viewer</p>
     </div>
   );
 }
